@@ -1,0 +1,7 @@
+<%= form_for(:access, url: create_activation_path) do |f| %>
+
+  <%= f.label :email, t(:email), class: "label" %>
+  <%= f.email_field :email, class: "text_field" %>
+
+  <%= f.submit t(:send_activation), class: "button_submit" %>
+<% end %>

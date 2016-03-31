@@ -1,0 +1,44 @@
+<div class="numbered">
+  <% will_be_numbered(users_path, @humans[:pages]) %>
+</div>
+<br>
+
+<% if @humans[:objects] %>
+  <% @humans[:objects].each do |human| %>
+
+    <div class = "human_wrapper">
+
+      <div class = "human_avatar_block">
+        <%= link_to(image_tag("/Default_Cover/Default_Avatar.png",
+                    class: "human_avatar"),
+                    human) %>
+      </div>
+
+      <div class = "human_name_block">
+        <p class = "human_name">
+          <%= human.name %>
+        </p>
+      </div>
+
+      <% if current_human == human || current_human.admin? %>
+        <div class = "human_edit">
+          <%= link_to t(:edit), edit_user_path(human.id),
+                                class: "small_link" %>
+        </div>
+      <% end %>
+
+      <% if current_human.admin? %>
+        <div class = "human_delete">
+          <%= link_to t(:delete), human,
+                                  method: :delete,
+                                  data: { confirm: t(:delete_confirmation) },
+                                  class: "small_link" %>
+        </div>
+      <% end %>
+
+    </div>
+  <% end %>
+<% end %>
+<script type="text/javascript">
+  PreLoader("human_avatar");
+</script>

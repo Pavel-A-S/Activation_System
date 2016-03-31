@@ -1,0 +1,19 @@
+<%= form_for(@human, html: {class: "plain_form"}) do |f| %>
+
+  <%= render partial: 'shared/form_errors', locals: { object: @human } %>
+
+  <%= f.label :name, class: "label" %>
+  <%= f.text_field :name, class: "text_field" %>
+
+  <%= f.label :email, class: "label" %>
+  <%= f.email_field :email, class: "text_field" %>
+
+  <%= f.label :password, class: "label" %>
+  <%= f.password_field :password, class: "text_field" %>
+
+  <%= f.label :password_confirmation, class: "label" %>
+  <%= f.password_field :password_confirmation, class: "text_field" %>
+
+  <%= f.submit t(:create_profile), class: "button_submit" %>
+
+<% end %>

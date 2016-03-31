@@ -1,0 +1,40 @@
+<div class = "human_center_align">
+  <div class = "human_wrapper">
+
+    <div class = "human_avatar_block">
+      <%= image_tag "/Default_Cover/Default_Avatar.png", class: "human_avatar" %>
+    </div>
+
+    <div class = "human_name_block">
+      <p class = "human_name">
+        <%= @human.name %>
+        <br>
+        <%= @human.email %>
+      </p>
+    </div>
+
+    <% if current_human == @human || current_human.admin? %>
+      <div class = "human_edit">
+        <%= link_to t(:edit), edit_user_path(@human),
+                              class: "small_link" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<% if @tokens %>
+  <% @tokens.each do |token| %>
+
+  <div class="plain_form">
+    <%= "Your Device" %> <br>
+    <%= token.name %> <br>
+    <%= token.MAC %> <br>
+    <%= token.body %> <br>
+    <%= link_to t(:delete), token_path(token.body),
+                            method: :delete,
+                            data: { confirm: t(:delete_confirmation) },
+                            class: "small_link" %>    
+  </div>
+ 
+  <% end %>
+<% end %>

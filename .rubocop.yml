@@ -1,0 +1,12 @@
+inherit_from: .rubocop_todo.yml #(rubocop --auto-gen-config)
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - script/**/*
+    - bin/**/*
+    - config/**/*
+    - db/**/*
+    - Gemfile
+    - Rakefile

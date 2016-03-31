@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+good_man:
+  name: 'Good Man'
+  email: 'goodman@test.com'
+  avatar: '/test/fixtures/files/avatar.png'
+  password_digest: <%= BCrypt::Password.create('12345678') %>
+  activation_status: 'Activated'
+
+admin:
+  name: 'Admin'
+  email: 'admin@test.com'
+  avatar: '/test/fixtures/files/avatar.png'
+  password_digest: <%= BCrypt::Password.create('12345678') %>
+  access: 'I am admin!'
+  activation_status: 'Activated'
+
+bad_man:
+  name: 'Bad Man'
+  email: 'badman@test.com'
+  avatar: '/test/fixtures/files/avatar.png'
+  password_digest: <%= BCrypt::Password.create('12345678') %>
+  activation_status: 'Activated'

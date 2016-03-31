@@ -1,0 +1,28 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+token1:
+  id: 17
+  activation_token: '_IEwoSDV_ziECeAy8BzcAA'
+  activation_status: 'Activated'
+  name: 'MyPhone'
+  MAC: '00:21:14:a7:01:43'
+  body: 'vrZAh3qy3wYB2dlEkwNwY1'
+  user_id: 23
+  sended: true
+
+token2:
+  id: 18
+  activation_token: '_IEwoSDV_ziECeAy8BzcA2'
+  activation_status: 'Activated'
+  name: 'MyPhone'
+  MAC: '00:21:14:a7:01:48'
+  body: 'vrZAh3qy3wYB2dlEkwNwYQ'
+  user_id: 23
+  sended: false
+
+token3:
+  id: 19
+  activation_token: '7IEwoSDV_ziECeAy8BzcA2'
+  name: 'MyPhone'
+  MAC: '00:21:14:a7:01:48'
+  body: 'vrZAh3qy3wYB2dlEkwNwYQ'
