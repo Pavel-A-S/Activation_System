@@ -1,8 +1,9 @@
 # Activation System
+[![Build Status](https://travis-ci.org/Pavel-A-S/Activation_System.svg?branch=master)](https://travis-ci.org/Pavel-A-S/Activation_System)
 
 ## Описание
 
-Программа эмитирует обмен данными между устройством и сервером
+Программа эмулирует обмен данными между устройством и сервером
 
 0. Для удобства можно сразу войти (необходимо для ввода токена) admin@funnyway.ru 12345678
 1. Заходим в раздел "Зарегистрировать устройство"
