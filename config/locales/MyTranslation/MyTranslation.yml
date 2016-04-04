@@ -5,30 +5,20 @@ ru:
   edit: Редактировать
   previous: Назад
   next: Вперёд
-  create_gallery: Создать новую галерею
   description: Описание
   save: Сохранить
   create: Создать
-  do_not_rotate: Оставить как есть
-  turn_left: Повернуть влево
-  turn_right: Повернуть вправо
-  turn_upside_down: Перевернуть вверх ногами
   name: Имя
   email: Почта
   password: Пароль
   password_confirmation: Подтверждение пароля
   update_profile: Обновить профиль
-  make_me_cover: Сделать обложкой
   send: Отправить
-  write_your_message_here: "Оставить сообщение:"
-  home_page: Домашняя страница
-  chat: Чат
   humans: Пользователи
-  questions: Вопросы
   log_out: Выйти
   log_in: Войти
   create_profile: Создать профиль
-  сreated_by: "Created by: ... мной!"
+  сreated_by: "Created by: pavel.a.s.1985@gmail.com"
   remember_me: Запомни меня
   enter: Войти
   send_activation: Отправить запрос на активацию
@@ -43,7 +33,7 @@ ru:
   activation_delay: "Должно пройти больше 5 минут с момента последнего запроса"
   no_account: "Не могу найти такой аккаунт"
   nope_activation: "Аккаунт не хочет быть активированным. Свяжитесь с владельцем этого сайта."
-  send_reset_password_link: "Ссылка для сброса пароля была отправлена на этот почтовый ящик"
+  send_reset_password_link: "Для этого тестового задания функция отправки ссылка для сброса пароля отключена"
   reset_password_delay: "Должно пройти больше 5 минут с момента последнего запроса"
   send_new_password: "Новый пароль был отправлен на ваш почтовый ящик"
   password_something_wrong: "Пароль не хочет меняться. Свяжитесь с владельцем этого сайта."
@@ -58,29 +48,24 @@ ru:
   deleted: " был удалён"
   nope: "Вы не можете это делать"
   wrong_data: "Неверные входящие данные"
-  file: "Файл"
-  rotation: "Ждите, она переворачивается."
   confirm: "Подтвердить"
   language: "\xA0\xA0Язык\xA0\xA0"
   russian: "Русский"
   english: "Английский"
-  question_part_1: "Вы находитесь в закрытом ни к чему не обязывающем заведении со странным названием."
-  question_part_2: "Данное заведение создано чтобы немного попиариться. Знакомство с ним стоит начать с чата или фото галереи."
   log_in_request: "Сначала войдите"
   errors: "Ошибок"
   successful_update: "Данные были успешно обновлены"
   mailer_activation_subject: "Запрос на активацию аккаунта"
   mailer_password_subject: "Запрос на сброс пароля"
   mailer_new_password_subject: "Новый пароль"
-  activation_part_1: "Вы создали аккаунт на сайте funnyway.ru"
+  activation_part_1: "Вы создали аккаунт на сайте localhost:3000"
   activation_part_2: "Чтобы активироваться пройдите по этой ссылке: "
-  password_reset_part_1: "Вы забыли пароль от аккаунта на сайте funnyway.ru"
+  password_reset_part_1: "Вы забыли пароль от аккаунта на сайте localhost:3000"
   password_reset_part_2: "Чтобы получить новый пароль пройдите по этой ссылке: "
-  new_password_part_1: "Вы забыли пароль от аккаунта на сайте funnyway.ru"
+  new_password_part_1: "Вы забыли пароль от аккаунта на сайте localhost:3000"
   new_password_part_2: "Вот ваш новый пароль (не забудьте сменить): "
   image_preload: "Фото загружается"
   reset_password_link_expired: "Ваша ссылка для сброса пароля просрочена. Она действительна в течении 30 минут с момента отправки."
-
   device: "Зарегистрировать устройство"
   server_answer: "Ответ от сервера (Активационный ключ)"
   activation_status: "Состояние активации"
@@ -91,6 +76,8 @@ ru:
   confirmation: "Вы подтвердили активацию."
   no_changes: "Изменений нет"
   device_deleted: "Устройство удалено"
+  log_in_to_bind: "Войдите, чтобы привязать устройство к пользователю"
+  not_activated_devices: "Ниже приведён список не активированных устройств (доступен только под учётной записью администратора)"
 
 en:
   main_title: "Device registration"
@@ -102,26 +89,17 @@ en:
   description: Description
   save: Save
   create: Create
-  do_not_rotate: "Don't rotate"
-  turn_left: Turn left
-  turn_right: Turn right
-  turn_upside_down: Turn upside down
   name: Name
   email: Email
   password: Password
   password_confirmation: Password Confirmation
   update_profile: Update profile!
-  make_me_cover: Make it album cover
   send: Send
-  write_your_message_here: "Write your message here:"
-  home_page: Home page
-  chat: Chat
   humans: Users
-  questions: Questions
   log_out: Log out
   log_in: Log in
   create_profile: Create profile
-  сreated_by: "Created by: ... by me!"
+  сreated_by: "Created by: pavel.a.s.1985@gmail.com"
   remember_me: Remember Me
   enter: Enter
   send_activation: Send activation request
@@ -136,7 +114,7 @@ en:
   activation_delay: "It should be more than 5 minutes since last request"
   no_account: "I can't find such account"
   nope_activation: "Account doesn't want to be activated. Please call to the owner of this wonderful site!"
-  send_reset_password_link: "Password reset link has been sent to this email"
+  send_reset_password_link: "This function is disabled"
   reset_password_delay: "It should be more than 5 minutes since last request"
   send_new_password: "New password has been sent to your email"
   password_something_wrong: "Password doesn't want to be changed. Please call to the owner of this wonderful site!"
@@ -151,29 +129,24 @@ en:
   deleted: " has been deleted"
   nope: "You can't do it"
   wrong_data: "Wrong attributes"
-  file: "File"
-  rotation: "In progress"
   confirm: "Confirm"
   language: "Language"
   russian: "Russian"
   english: "English"
-  question_part_1: "Hi! You are in an odd establishment."
-  question_part_2: "This place was created for small community with shared interests. You can join to the community through one of its member."
   log_in_request: "Log in first"
   errors: "Errors"
   successful_update: "Profile was successfully updated"
   mailer_activation_subject: "Account activation request"
   mailer_password_subject: "Password reset request"
   mailer_new_password_subject: "New password"
-  activation_part_1: "You have created account on funnyway.ru"
+  activation_part_1: "You have created account on localhost:3000"
   activation_part_2: "To finish activation please click here: "
-  password_reset_part_1: "You have forgotten the password form funnyway.ru"
+  password_reset_part_1: "You have forgotten the password form localhost:3000"
   password_reset_part_2: "To get new password please click here: "
-  new_password_part_1: "You have requested new password for your account on funnyway.ru"
+  new_password_part_1: "You have requested new password for your account on localhost:3000"
   new_password_part_2: "This is your new password, don't forget to change it: "
   image_preload: "In Progress"
   reset_password_link_expired: "Your password reset link is expired. It lives only 30 minutes."
-
   device: "Register Device"
   server_answer: "Answer from server (Activation Token)"
   activation_status: "Activation status"
@@ -184,6 +157,7 @@ en:
   confirmation: "You confirm activation."
   no_changes: "No changes"
   device_deleted: "Device deleted"
-
+  log_in_to_bind: "Please log in to bind your device"
+  not_activated_devices: "Below is a list of not activated devices (available only under admin profile)"
 
 

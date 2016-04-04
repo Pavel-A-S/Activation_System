@@ -2,57 +2,65 @@
 module AccessHelper
   private
 
-  # check if human has permission
-  def human_only
-    if !session[:human_id] && cookies[:human_card] && cookies[:human_id]
-      @human = User.find_by('id = ?', cookies.signed[:human_id]) # ok
-      if @human &&
-         !@human.human_card.blank? &&
-         human_card = cookies.signed[:human_card] # ok
+  # checks if user is logged in
+  def user_only
+    # if user has cookie
+    if !session[:user_id] && cookies[:user_card] && cookies[:user_id]
+      @user = User.find_by('id = ?', cookies.signed[:user_id]) # ok
+      if @user &&
+         !@user.user_card.blank? &&
+         user_card = cookies.signed[:user_card] # ok
 
-        if BCrypt::Password.new(human_card).is_password?(@human.human_card)
-          session[:human_id] = @human.id
-          @human.last_login = DateTime.now
-          @human.save(validate: false)
+        if BCrypt::Password.new(user_card).is_password?(@user.user_card)
+          session[:user_id] = @user.id
+          @user.last_login = DateTime.now
+          @user.save(validate: false)
         end
       end
 
-    elsif session[:human_id]
-      @human = User.find_by('id = ?', session[:human_id]) # ok
-      @human.last_login = DateTime.now
-      @human.save(validate: false)
+    # if user has session
+    elsif session[:user_id] && @user = User.find_by('id = ?',
+                                                    session[:user_id]) # ok
+      @user.last_login = DateTime.now
+      @user.save(validate: false)
     end
 
-    return if session[:human_id] &&
-              @human &&
-              @human.activation_status == 'Activated'
+    # checks if user activated
+    return if session[:user_id] &&
+              @user &&
+              @user.activation_status == 'Activated'
 
-    if session[:human_id] &&
-       @human &&
-       @human.activation_status != 'Activated'
+    # shows error messages
+    if session[:user_id] &&
+       @user &&
+       @user.activation_status != 'Activated'
 
       flash[:alert] = t(:banned)
     else
       flash[:alert] = t(:log_in_request)
     end
 
-    session.delete(:human_id) if session[:human_id]
-    cookies.delete(:human_id) if cookies[:human_card]
-    cookies.delete(:human_card) if cookies[:human_id]
+    # destroys all activation data
+    session.delete(:user_id) if session[:user_id]
+    cookies.delete(:user_id) if cookies[:user_id]
+    cookies.delete(:user_card) if cookies[:user_card]
     redirect_to login_form_path
   end
 
-  # check if human is inside
-  def human_inside?
-    if session[:human_id]
+  # check if user is inside
+  def user_inside?
+    if session[:user_id]
+      return true
+    elsif cookies[:user_card]
+      user_only
       return true
     else
       return false
     end
   end
 
-  # determine current human
-  def current_human
-    User.find_by('id = ?', session[:human_id]) # ok
+  # determine current user
+  def current_user
+    User.find_by('id = ?', session[:user_id]) # ok
   end
 end

@@ -1,0 +1,26 @@
+/ pagination
+div class='numbered'
+  - will_be_numbered(users_path, @users[:pages])
+br
+ 
+/ shows all users
+- if @users[:objects]
+  - @users[:objects].each do |user|
+    div class='user_wrapper'
+      div class='user_avatar_block'
+        = link_to(image_tag('/Default_Cover/Default_Avatar.png',
+                  class: 'user_avatar'), user)
+      div class='user_name_block'
+        p class='user_name'
+          = user.name
+
+      - if current_user == user || current_user.admin?
+        div class='user_edit'
+          = link_to t(:edit), edit_user_path(user.id), class: 'small_link'
+
+      - if current_user.admin?
+        div class='user_delete'
+          = link_to t(:delete), user,
+                                method: :delete,
+                                data: { confirm: t(:delete_confirmation) },
+                                class: 'small_link'

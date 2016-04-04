@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     { locale: I18n.locale }.merge options
   end
 
+  # sets language
   def set_locale
     if params[:language] == 'en'
       cookies.permanent[:language] = 'en'

@@ -1,0 +1,60 @@
+doctype html
+html
+  head
+    title
+      = t(:main_title)
+    = stylesheet_link_tag 'application', media: 'all',
+                                         'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  body
+    header
+      p class='MainHeader'
+        = t(:main_title)
+ 
+      / for navigation links
+      nav class='navigation'
+        div class = 'navigation_block'
+          = link_to t(:device), tokens_path + '#bottom', class: 'header_link'
+          = link_to t(:users), users_path, class: 'header_link'
+          div class='language_block'
+            div class='language_cover'
+              div class='language_title'
+                = t(:language)
+              div class='item'
+                = link_to t(:english), users_path + '?language=en',
+                                       class: 'submenu_link'
+
+              div class='item'
+                = link_to t(:russian), users_path + '?language=ru',
+                                       class: 'submenu_link'
+          - if user_inside?
+            = link_to t(:log_out), destroy_session_path, method: 'delete',
+                                                         class: 'header_link'
+          - else
+            = link_to t(:log_in), login_form_path, class: 'header_link'
+            = link_to t(:create_profile), new_user_path, class: 'header_link'
+ 
+    / for flash messages
+    div class = 'InformationBlock' id = 'InformationBlock'
+      - flash.each do |key, value|
+        - if key == 'alert'
+          div class = 'AlertInformation'
+            -  if value.kind_of?(Array)
+              - value.each do |x|
+                = x
+                br
+            - else
+              = value
+        - elsif key == 'message'
+          div class = 'CommonInformation'
+            =value
+ 
+    / main part
+    div class="wrapper"
+      = yield
+ 
+    / footer
+    footer
+      div class = 'FooterText'
+        = t(:сreated_by)

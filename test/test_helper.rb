@@ -10,6 +10,6 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   def log_in(id)
-    session[:human_id] = id
+    session[:user_id] = id
   end
 end

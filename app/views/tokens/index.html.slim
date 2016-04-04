@@ -1,0 +1,47 @@
+/ form for emulating device request
+= form_for(@message, html: { class: 'plain_form' }) do |f|
+  = f.label :name, t(:device_name), class: 'label'
+  = f.text_field :name, value: 'MyPhone', class: 'text_field', id: 'name'
+  = f.label :MAC, t(:MAC), class: 'label'
+  = f.text_field :MAC, value: '00:21:14:a7:01:43', class: 'text_field',
+                                                   id: 'MAC'
+
+  = f.submit t(:send), type: 'button', class: 'button_submit',
+                                       id: 'requestButton'
+ 
+/ form for answer from server
+div class='plain_form'
+  div class='label'
+    = t(:server_answer)
+  div class='tf2' id='answer1'
+  div class='label'
+    = t(:activation_status)
+  div class='tf2' id='answer2_1'
+  div class='label'
+    = t(:token)
+  div class='tf2' id='answer2_2'
+ 
+ 
+/ form for device binding
+- if user_inside?
+  = form_for(@message, html: { class: 'plain_form' }) do |f|
+    = f.label :activation_token, t(:bind_device), class: 'label'
+    = f.text_field :activation_token, class: 'text_field', id: 'token'
+
+    = f.submit t(:send), type: 'button', class: 'button_submit',
+                                         id: 'verificationButton'
+- else
+  div class='plain_form'
+    h3 class='plain_header'
+      = t(:log_in_to_bind)
+    br
+    = link_to t(:log_in), login_form_path, class: 'header_link2'
+ 
+/ anchor
+a name='bottom' = ' '
+ 
+/ main frontend programm
+javascript:
+  MainApp("#{t(:no_changes)}", "#{t(:confirmation)}", "#{tokens_path}",
+          "#{form_authenticity_token}");
+

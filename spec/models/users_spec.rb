@@ -19,37 +19,37 @@ RSpec.describe User, type: :model do
   end
 
   it 'Must not be errors if attributes are correct' do
-    @human = User.create(@good_attributes)
-    expect(@human.errors.size).to eq(0)
+    @user = User.create(@good_attributes)
+    expect(@user.errors.size).to eq(0)
   end
 
   it 'Name must be present' do
-    @human = User.create(@wrong_attributes)
-    expect(@human.errors[:name].size).to eq(1)
+    @user = User.create(@wrong_attributes)
+    expect(@user.errors[:name].size).to eq(1)
   end
 
   it 'Name length must not be more than 48 symbols' do
-    @human = User.create(@second_wrong_attributes)
-    expect(@human.errors[:name].size).to eq(1)
+    @user = User.create(@second_wrong_attributes)
+    expect(@user.errors[:name].size).to eq(1)
   end
 
   it 'Email must be present and be correct' do
-    @human = User.create(@wrong_attributes)
-    expect(@human.errors[:email].size).to eq(1)
+    @user = User.create(@wrong_attributes)
+    expect(@user.errors[:email].size).to eq(1)
   end
 
   it 'Email length must not be more than 100 symbols' do
-    @human = User.create(@second_wrong_attributes)
-    expect(@human.errors[:email].size).to eq(1)
+    @user = User.create(@second_wrong_attributes)
+    expect(@user.errors[:email].size).to eq(1)
   end
 
   it 'Password length must be at least 8 symbols' do
-    @human = User.create(@wrong_attributes)
-    expect(@human.errors[:password].size).to eq(1)
+    @user = User.create(@wrong_attributes)
+    expect(@user.errors[:password].size).to eq(1)
   end
 
   it 'Password and password confirmation must match' do
-    @human = User.create(@second_wrong_attributes)
-    expect(@human.errors[:password_confirmation].size).to eq(1)
+    @user = User.create(@second_wrong_attributes)
+    expect(@user.errors[:password_confirmation].size).to eq(1)
   end
 end

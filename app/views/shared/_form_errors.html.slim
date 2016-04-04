@@ -1,0 +1,8 @@
+/ It's a partial for errors
+- if object && object.errors.any?
+  div class='block_for_errors'
+    = "#{t(:errors)}: #{object.errors.count}"
+    ul
+      - object.errors.full_messages.each do |error|
+        li
+          = error

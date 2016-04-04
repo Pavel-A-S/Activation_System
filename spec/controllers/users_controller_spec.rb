@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-
   def log_in(id)
-    session[:human_id] = id
+    session[:user_id] = id
   end
 
   before(:each) do
@@ -98,21 +97,21 @@ RSpec.describe UsersController, type: :controller do
   it "create action: if any errors user mustn't be redirected" do
     post :create, user: @bad_attributes, locale: @locale
     expect(response).to render_template :new
-    expect(assigns(:human).errors.any?).to be true
+    expect(assigns(:user).errors.any?).to be true
   end
 
   # if "no attributes" request - must be handled
   it "create action: if 'no attributes request' - must be handled" do
     post :create, locale: @locale
     expect(response).to render_template :new
-    expect(assigns(:human).errors.any?).to be true
+    expect(assigns(:user).errors.any?).to be true
   end
 
   # if "wrong type attributes" request - must be handled
   it "create action: if 'wrong type attributes request' - must be handled" do
     post :create, user: 'lalala', locale: @locale
     expect(response).to render_template :new
-    expect(assigns(:human).errors.any?).to be true
+    expect(assigns(:user).errors.any?).to be true
   end
 
   #---------------------------------- edit action ------------------------------
@@ -210,7 +209,7 @@ RSpec.describe UsersController, type: :controller do
                    user: @bad_attributes,
                    locale: @locale
     expect(response).to render_template :edit
-    expect(assigns(:human).errors.any?).to be true
+    expect(assigns(:user).errors.any?).to be true
   end
 
   # if "no attributes" request - must be handled

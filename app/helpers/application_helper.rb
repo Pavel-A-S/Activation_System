@@ -1,5 +1,7 @@
 # Just an ApplicationHelper
 module ApplicationHelper
+  #------------------------ uses for pagination --------------------------------
+
   def will_be_numbered(path, list) # attributes from numbering look securely
     # show "Previous" button
     concat link_to '', "#{path}?list=#{list[:previous]}",

@@ -2,37 +2,36 @@
 class AccessController < ApplicationController
   #-------------------- login (create session, cookies) part -------------------
 
+  # shows login form
   def login_form
   end
 
   def create_session
-    @human = User.find_by('email = ?',
-                           session_attributes[:email].to_s.downcase) # ok
-    # grant access
-    if @human &&
-       @human.authenticate(session_attributes[:password]) &&
-       @human.activation_status == 'Activated' # ok
+    @user = User.find_by('email = ?', session_attributes[:email].to_s.downcase)
+    # checks if all data are correct
+    if @user &&
+       @user.authenticate(session_attributes[:password]) &&
+       @user.activation_status == 'Activated' # ok
 
-      allow_human_to_pass(@human.id)
-
-      # ok
-      give_human_card_to(@human) if session_attributes[:get_human_card] == '1'
-
+      # creates session for user
+      allow_user_to_pass(@user.id)
+      # sets cookie
+      give_user_card_to(@user) if session_attributes[:get_user_card] == '1'
       flash[:message] = t(:welcome)
-      redirect_to(@human)
+      redirect_to(@user)
 
-    # if not activated
-    elsif @human &&
-          @human.authenticate(session_attributes[:password]) &&
-          @human.activation_status.blank?
+    # if not activated - not used in this test
+    elsif @user &&
+          @user.authenticate(session_attributes[:password]) &&
+          @user.activation_status.blank?
 
       flash[:alert] = t(:activation_problem)
       redirect_to activation_form_path
 
-    # if banned
-    elsif @human &&
-          @human.authenticate(session_attributes[:password]) &&
-          @human.activation_status == 'Nope'
+    # if banned - not used in this test
+    elsif @user &&
+          @user.authenticate(session_attributes[:password]) &&
+          @user.activation_status == 'Nope'
 
       flash.now[:alert] = t(:banned)
       render 'login_form'
@@ -44,48 +43,50 @@ class AccessController < ApplicationController
     end
   end
 
+  # for logout (destroys cookies and session)
   def destroy_session
-    session.delete(:human_id)
-    cookies.delete(:human_id)
-    cookies.delete(:human_card)
+    session.delete(:user_id)
+    cookies.delete(:user_id)
+    cookies.delete(:user_card)
     flash[:message] = t(:successful_logout)
     redirect_to login_form_path
   end
 
   #-------------------------- activation profile part --------------------------
 
+  # not used in this test
   def activation_form
   end
 
+  # not used in this test
   def create_activation
-    @human = User.find_by('email =?',
-                           activation_attributes[:email].to_s.downcase)
-    if @human &&
-       @human.activation_status != 'Activated' &&
-       (@human.activation_request_at.blank? ||
-        @human.activation_request_at < 5.minutes.ago)
+    @user = User.find_by('email =?', activation_attributes[:email].to_s
+                                                                   .downcase)
+    if @user &&
+       @user.activation_status != 'Activated' &&
+       (@user.activation_request_at.blank? ||
+        @user.activation_request_at < 5.minutes.ago)
 
       # Generate token
       begin
         token = SecureRandom.urlsafe_base64
-        @human.activation_token = BCrypt::Password.create(token)
-      end while User.exists?(activation_token: @human.activation_token)
-      @human.activation_request_at = DateTime.now
+        @user.activation_token = BCrypt::Password.create(token)
+      end while User.exists?(activation_token: @user.activation_token)
+      @user.activation_request_at = DateTime.now
 
       # Send token and save encrypted part
-      if @human.save(validate: false)
-        #HumanMailer.account_activation(@human, token).deliver_now
+      if @user.save(validate: false)
         flash.now[:message] = t(:send_activation_link)
         render 'activation_form'
       end
 
     # if already activated
-    elsif @human && @human.activation_status == 'Activated'
+    elsif @user && @user.activation_status == 'Activated'
       flash[:alert] = t(:account_already_activated)
       redirect_to login_form_path
 
     # if short delay
-    elsif @human && @human.activation_request_at > 5.minutes.ago
+    elsif @user && @user.activation_request_at > 5.minutes.ago
       flash.now[:alert] = t(:activation_delay)
       render 'activation_form'
 
@@ -96,24 +97,25 @@ class AccessController < ApplicationController
     end
   end
 
+  # not used in this test
   def account_activation
-    @human = User.find_by('email =?', params[:email])
+    @user = User.find_by('email =?', params[:email])
 
     # activation
-    if @human &&
-       @human.activation_status.blank? &&
-       !@human.activation_token.blank? &&
-       BCrypt::Password.new(@human.activation_token)
+    if @user &&
+       @user.activation_status.blank? &&
+       !@user.activation_token.blank? &&
+       BCrypt::Password.new(@user.activation_token)
        .is_password?(params[:token])
 
-      @human.activation_status = 'Activated'
-      @human.activated_at = DateTime.now
-      @human.save(validate: false)
+      @user.activation_status = 'Activated'
+      @user.activated_at = DateTime.now
+      @user.save(validate: false)
       flash[:message] = t(:successful_activation)
       redirect_to login_form_path
 
     # if already activated
-    elsif @human && @human.activation_status == 'Activated'
+    elsif @user && @user.activation_status == 'Activated'
       flash[:alert] = t(:account_already_activated)
       redirect_to login_form_path
 
@@ -126,30 +128,31 @@ class AccessController < ApplicationController
 
   #---------------------------- reset password part ----------------------------
 
+  # shows reset password form - not used in this test
   def reset_password_form
   end
 
+  # not used in this test
   def create_reset_link
-    @human = User.find_by('email =?', reset_attributes[:email].to_s.downcase)
-    if @human && (@human.password_reset_requested_at.blank? ||
-                  @human.password_reset_requested_at < 5.minutes.ago)
+    @user = User.find_by('email =?', reset_attributes[:email].to_s.downcase)
+    if @user && (@user.password_reset_requested_at.blank? ||
+                  @user.password_reset_requested_at < 5.minutes.ago)
 
       # Generate reset password token
       begin
         token = SecureRandom.urlsafe_base64
-        @human.password_reset_token = BCrypt::Password.create(token)
-      end while User.exists?(password_reset_token: @human.password_reset_token)
-      @human.password_reset_requested_at = DateTime.now
+        @user.password_reset_token = BCrypt::Password.create(token)
+      end while User.exists?(password_reset_token: @user.password_reset_token)
+      @user.password_reset_requested_at = DateTime.now
 
       # Send reset token and save encrypted part
-      if @human.save(validate: false)
-        #HumanMailer.password_reset(@human, token).deliver_now
+      if @user.save(validate: false)
         flash.now[:message] = t(:send_reset_password_link)
         render 'reset_password_form'
       end
 
     # if short delay
-    elsif @human && @human.password_reset_requested_at > 5.minutes.ago
+    elsif @user && @user.password_reset_requested_at > 5.minutes.ago
       flash.now[:alert] = t(:reset_password_delay)
       render 'reset_password_form'
 
@@ -160,31 +163,31 @@ class AccessController < ApplicationController
     end
   end
 
+  # not used in this test
   def reset_password
-    @human = User.find_by('email =?', params[:email])
+    @user = User.find_by('email =?', params[:email])
 
     # creating new password
-    if @human &&
-       !@human.password_reset_token.blank? &&
-       !@human.password_reset_requested_at.blank? &&
-       @human.password_reset_requested_at > 30.minutes.ago &&
-       BCrypt::Password.new(@human.password_reset_token)
+    if @user &&
+       !@user.password_reset_token.blank? &&
+       !@user.password_reset_requested_at.blank? &&
+       @user.password_reset_requested_at > 30.minutes.ago &&
+       BCrypt::Password.new(@user.password_reset_token)
        .is_password?(params[:token])
 
       password = SecureRandom.urlsafe_base64
-      @human.password = password
+      @user.password = password
 
       # Send password and save encrypted part
-      if @human.save(validate: false)
-        #HumanMailer.send_password(@human, password).deliver_now
+      if @user.save(validate: false)
         flash[:message] = t(:send_new_password)
         redirect_to login_form_path
       end
     # if reset password link expired
-    elsif @human &&
-          !@human.password_reset_token.blank? &&
-          !@human.password_reset_requested_at.blank? &&
-          @human.password_reset_requested_at < 30.minutes.ago
+    elsif @user &&
+          !@user.password_reset_token.blank? &&
+          !@user.password_reset_requested_at.blank? &&
+          @user.password_reset_requested_at < 30.minutes.ago
 
       flash[:alert] = t(:reset_password_link_expired)
       redirect_to root_path
@@ -221,27 +224,27 @@ class AccessController < ApplicationController
                                             :email,
                                             :password,
                                             :password_confirmation,
-                                            :get_human_card)
+                                            :get_user_card)
     else
       return {}
     end
   end
 
-  def allow_human_to_pass(human_id)
-    session[:human_id] = human_id
+  def allow_user_to_pass(user_id)
+    session[:user_id] = user_id
   end
 
-  def give_human_card_to(human)
-    cookies.permanent.signed[:human_id] = human.id
-    if human.human_card.blank?
+  def give_user_card_to(user)
+    cookies.permanent.signed[:user_id] = user.id
+    if user.user_card.blank?
       begin
-        human.human_card = SecureRandom.urlsafe_base64
-      end while User.exists?(human_card: human.human_card)
-      token = BCrypt::Password.create(human.human_card)
-      human.save(validate: false) # subtle moment
+        user.user_card = SecureRandom.urlsafe_base64
+      end while User.exists?(user_card: user.user_card)
+      token = BCrypt::Password.create(user.user_card)
+      user.save(validate: false) # subtle moment
     else
-      token = BCrypt::Password.create(human.human_card)
+      token = BCrypt::Password.create(user.user_card)
     end
-    cookies.permanent.signed[:human_card] = token
+    cookies.permanent.signed[:user_card] = token
   end
 end

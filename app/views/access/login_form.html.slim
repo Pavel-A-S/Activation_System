@@ -1,0 +1,26 @@
+/ form for user login
+= form_for(:access, url: create_session_path,
+                    html: { class: 'plain_form' }) do |f|
+
+  = f.label :email, t(:email), class: 'label'
+  = f.email_field :email, class: 'text_field'
+
+  = f.label :password, class: 'label' do
+
+    div class='password_label'
+      = t(:password)
+ 
+    / disabled in this test task
+    = link_to t(:recover), reset_password_form_path,
+                           class: 'password_restore_link'
+
+  = f.password_field :password, class: 'text_field'
+
+  = f.check_box :get_user_card, class: 'checkbox'
+
+  = label_tag :access_get_user_card, class: 'checkbox_label' do
+    div class='checkbox_image' = ' '
+    div class='RememberMeText'
+      = t(:remember_me)
+
+  = f.submit t(:enter), class: 'button_submit_for_checkbox'

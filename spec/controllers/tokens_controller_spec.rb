@@ -4,7 +4,7 @@ RSpec.describe TokensController, type: :controller do
   fixtures :Tokens
 
   def log_in(id)
-    session[:human_id] = id
+    session[:user_id] = id
   end
 
   before(:each) do
@@ -16,20 +16,19 @@ RSpec.describe TokensController, type: :controller do
     @good_activation_token2 = '_IEwoSDV_ziECeAy8BzcA2'
     @new_activation_token = '7IEwoSDV_ziECeAy8BzcA2'
     @bad_activation_token = 'Wrong'
-    @permanent_good_user_token = 'vrZAh3qy3wYB2dlEkwNwY1'
+    @good_user_token_id = 17
     @response_json_activated = { status: 'Activated',
                                  token: 'vrZAh3qy3wYB2dlEkwNwYQ' }.to_json
     @response_json_nochanges = { status: 'NoChanges' }.to_json
     @response_to_user_json_activated = { status: 'Activated' }.to_json
-    @good_attributes = { name: 'MyDevice', :MAC => '00:21:14:a7:01:43' }
+    @good_attributes = { name: 'MyDevice', MAC: '1f:21:af:a7:01:43' }
     @bad_attributes = {}
-
   end
 
   #-------------------------------- show action --------------------------------
 
   # device must get access
-  it "show action: device must get access" do
+  it 'show action: device must get access' do
     get :show, id: @good_activation_token, locale: @locale
     expect(assigns(:token).activation_token).to eq(@good_activation_token)
     expect(response.body).to eq(@response_json_nochanges)
@@ -37,7 +36,7 @@ RSpec.describe TokensController, type: :controller do
   end
 
   # token must be right
-  it "show action: token must be right" do
+  it 'show action: token must be right' do
     get :show, id: @bad_activation_token, locale: @locale
     expect(assigns(:token)).to be nil
     expect(response.body).to eq(@response_json_nochanges)
@@ -45,7 +44,7 @@ RSpec.describe TokensController, type: :controller do
   end
 
   # if it's first connection token must be sent
-  it "show action: token must be sent" do
+  it 'show action: token must be sent' do
     get :show, id: @good_activation_token2, locale: @locale
     expect(assigns(:token).activation_token).to eq(@good_activation_token2)
     expect(response.body).to eq(@response_json_activated)
@@ -89,25 +88,25 @@ RSpec.describe TokensController, type: :controller do
   #------------------------------- create action -------------------------------
 
   # device must get access
-  it "create action: device must get access" do
+  it 'create action: device must get access' do
     post :create, device: @good_attributes, locale: @locale
     expect(response).to be_success
   end
 
   # token must be sent
-  it "create action: token must be sent" do
+  it 'create action: token must be sent' do
     post :create, device: @good_attributes, locale: @locale
     body_json = JSON(response.body)
-    expect(body_json["token"]).not_to be_nil
-    expect(body_json["status"]).to eq("Ok")
+    expect(body_json['token']).not_to be_nil
+    expect(body_json['status']).to eq('Ok')
     expect(response).to be_success
   end
 
   # if wrong attributes must be error message
-  it "create action: must be error message" do
+  it 'create action: must be error message' do
     post :create, device: @bad_attributes, locale: @locale
     body_json = JSON(response.body)
-    expect(body_json["status"]).to eq("errors")
+    expect(body_json['status']).to eq('errors')
     expect(response).to be_success
   end
 
@@ -129,7 +128,7 @@ RSpec.describe TokensController, type: :controller do
 
   # logged out users must be redirected to login form
   it 'destroy action: logged out users must be redirected to login form' do
-    delete :destroy, id: @permanent_good_user_token, locale: @locale
+    delete :destroy, id: @good_user_token_id, locale: @locale
     expect(response).to redirect_to login_form_path
     expect(flash.empty?).to_not be true
   end
@@ -137,15 +136,15 @@ RSpec.describe TokensController, type: :controller do
   # logged in user mustn't have ability to delete other user devices
   it "destroy action: user mustn't have ability to delete other user devices" do
     log_in(@bad_man_id)
-    delete :destroy, id: @permanent_good_user_token, locale: @locale
+    delete :destroy, id: @good_user_token_id, locale: @locale
     expect(response).to redirect_to root_path
     expect(flash.empty?).to_not be true
   end
 
   # logged in user must have ability to delete his devices
-  it "destroy action: user must have ability to delete his devices" do
+  it 'destroy action: user must have ability to delete his devices' do
     log_in(@good_man_id)
-    delete :destroy, id: @permanent_good_user_token, locale: @locale
+    delete :destroy, id: @good_user_token_id, locale: @locale
     expect(response).to redirect_to user_path(@good_man_id)
     expect(flash.empty?).to_not be true
   end
@@ -153,7 +152,7 @@ RSpec.describe TokensController, type: :controller do
   # admin must have access to destroy someone else devices
   it 'destroy action: admin must have access to destroy other devices' do
     log_in(@admin_id)
-    delete :destroy, id: @permanent_good_user_token, locale: @locale
+    delete :destroy, id: @good_user_token_id, locale: @locale
     expect(response).to redirect_to user_path(@admin_id)
     expect(flash.empty?).to_not be true
   end

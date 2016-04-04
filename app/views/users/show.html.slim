@@ -1,0 +1,55 @@
+/ shows user block
+div class='user_center_align'
+  div class='user_wrapper'
+    div class='user_avatar_block'
+      = image_tag '/Default_Cover/Default_Avatar.png', class: 'user_avatar'
+
+    div class='user_name_block'
+      p class='user_name'
+        = @user.name
+        br
+        = @user.email
+ 
+    / only current user or admin can edit profile
+    - if current_user == @user || current_user.admin?
+      div class='user_edit'
+        = link_to t(:edit), edit_user_path(@user), class: 'small_link'
+ 
+/ shows user devices
+- if @tokens
+  - @tokens.each do |token|
+    div class='plain_form'
+      = 'Your Device'
+      br
+      = token.name
+      br
+      = token.MAC
+      br
+      = token.body
+      br
+      = link_to t(:delete), token_path(token.id),
+                            method: :delete,
+                            data: { confirm: t(:delete_confirmation) },
+                            class: 'small_link'
+ 
+/ shows all not activated devices if user admin
+- if !@requests.blank?
+  br
+  h3 class='plain_header'
+    = t(:not_activated_devices)
+  br
+  br
+  - @requests.each do |token|
+    div class='plain_form'
+      = 'Your Device'
+      br
+      = token.name
+      br
+      = token.MAC
+      br
+      = 'Not Activated'
+      br
+      = link_to t(:delete), token_path(token.id),
+                            method: :delete,
+                            data: { confirm: t(:delete_confirmation) },
+                            class: 'small_link'

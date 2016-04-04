@@ -13,7 +13,6 @@ button::-moz-focus-inner {
 
 body:before {
   display: none;
-  content: url("/Default_Cover/forest.png");
   content: url("/Default_Cover/second_header.png");
   content: url("/Default_Cover/body.png");
   content: url("/Default_Cover/header.png");
@@ -178,70 +177,6 @@ header {
   @include super_border(0px, 0px, 0px, 0px, solid, white);
   padding: 10px;
   text-align: center 
-}
-
-//------------------------------------ Chat ------------------------------------
-
-.ChatWrapper {
-  @include for_browsers;
-  overflow: auto;
-  @include super_size(auto, 100%);
-  border: 2px solid #ad9eff;
-  border-radius: 10px;
-  background-image: url("/Default_Cover/GlassBackgroundWhite40.png");
-  background-size: 300px auto;
-}
-
-.ChatMessagesBlock {
-  @include for_browsers;
-  overflow: hidden;
-  margin-top: 10px;
-}
-
-.ChatHumanBlock {
-  @include for_browsers;
-  float: left;
-  clear: left;
-  @include super_size(auto, 170px); // fixed size
-}
-
-.ChatAvatarBlock {
-  @include for_browsers;
-  float: left;
-  margin-left: 5px;
-  @include super_size(52px, 52px); // fixed size
-}
-
-.ChatAvatar {
-  @include max_size(50px, 50px);
-}
-
-.ChatInformationBlock {
-  @include for_browsers;
-  overflow: hidden;
-  margin-left: 60px;               // fixed margin
-}
-
-.ChatNameBlock {
-  @include for_browsers;
-  font: 13pt forum;
-  margin: 5px auto;
-  width: 100%;
-}
-
-.ChatDateBlock {
-  @include for_browsers;
-  font: 10pt forum;
-  margin-top: 5px;
-  width: 100%;
-}
-
-.ChatTextBlock {
-  @include for_browsers;
-  margin: 5px 5px 5px 185px;      // fixed margin
-  text-align: left;
-  font: 14pt forum;
-  word-wrap: break-word;
 }
 
 //----------------------------------- Text -------------------------------------
@@ -565,7 +500,7 @@ header {
 }
 
 // Ok
-.title_human_block {
+.title_user_block {
   float: left;
   width: 100%;
   font: 10pt forum;
@@ -587,14 +522,14 @@ header {
   width: 100%;
 }
 
-//------------------------------- for humans index -----------------------------
+//------------------------------- for users index ------------------------------
 
 // Ok
-.human_center_align {
+.user_center_align {
   display: inline-block;
 }
 
-.human_wrapper {
+.user_wrapper {
   display: inline-block;
   overflow: hidden;
   @include super_size(250px, 250px);
@@ -606,41 +541,41 @@ header {
 }
 
 // Ok
-.human_avatar_block {
+.user_avatar_block {
   margin: auto;
   margin-top: 25px;
   min-height: 100px;
 }
 
 // Ok
-.human_avatar {
+.user_avatar {
   @include max_size(150px, 150px);
 }
 
 // Ok
-.human_name_block {
+.user_name_block {
   margin: auto;
 }
 
 // Ok
-.human_name {
+.user_name {
   font: 12pt forum;
   margin: 0px;
 }
 
 // Ok
-.human_edit {
+.user_edit {
   margin: auto;
   font: 10pt forum;
 }
 
 // Ok
-.human_delete {
+.user_delete {
   margin: auto;
   font: 10pt forum;
 }
 
-//-------------------------------- for humans form -----------------------------
+//-------------------------------- for users form ------------------------------
 
 // OK
 .avatar_block {
@@ -741,6 +676,50 @@ footer {
   font: 10pt forum;
   margin-top: 10px;
   color: white;
+}
+
+//--------------------------------- For tokens ---------------------------------
+
+.tf2 {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  width: 100%;
+  height: 35px;
+  border: 2px solid white;
+  margin: 0px;
+  outline: none;
+  border-radius: 8px;
+  background: #ccc2ff;
+  padding-top: 5px;
+  font: 12pt forum;
+}
+
+.header_link2 {
+  display: inline-block;
+  vertical-align: middle;
+  text-decoration: none;
+  margin: 20px 20px 0px 20px;
+  font: 14pt forum;
+  color: black;
+  &:link {
+    color: black;
+  }
+  &:visited {
+    color: black;
+  }
+  &:hover {
+    color: white;
+  }    
+}
+
+.plain_header {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0px 20px 0px 20px;
+  font: 16pt forum;
+  color: black;
 }
 
 //--------------------------------- For debugging ------------------------------

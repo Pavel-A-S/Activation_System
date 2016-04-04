@@ -1,12 +1,10 @@
+# User model
 class User < ActiveRecord::Base
   include SharedModelMethods
 
   has_many :tokens, dependent: :destroy
 
   before_save { email.downcase! }
-  before_destroy :delete_folder
-
-  #  mount_uploader :avatar, ForAvatarUploader
 
   VALID_EMAIL_BEFORE_DOG = '\A[a-z\d]+((\.|-)[a-z\d]+)*'
   VALID_EMAIL_AFTER_DOG = '[a-z\d]+((\.|-)[a-z\d]+)*\z'
@@ -37,10 +35,5 @@ class User < ActiveRecord::Base
   # For has_secure_password validations: false and validation at all.
   def password_present?
     !password.nil? || password_confirmation != ''
-  end
-
-  def delete_folder
-    FileUtils.rm_rf "#{Rails.root}/private/photo_galleries/human_#{id}"
-    FileUtils.rm_rf "#{Rails.root}/private/avatars/human_#{id}"
   end
 end

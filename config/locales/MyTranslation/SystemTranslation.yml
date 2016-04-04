@@ -6,12 +6,10 @@ ru:
         email: "Почта"
         password: "Пароль"
         password_confirmation: "Подтверждение пароля"
-      photo:
-        name: "Название фотографии"
-      chat:
-        text: "Сообщение"
-      comment:
-        text: "Комментарий"
+      token:
+        name: "Название устройства"
+        MAC: "MAC"
+
     errors:
       models:
         user:
@@ -22,7 +20,7 @@ ru:
                 other: "- 48 символов максимум"
             email:
               blank: "- нужно указать."
-              too_long: "- таких не бывает. Или не должно быть в природе!"
+              too_long: "- очень длинный."
               invalid: "- что-то с ней не так."
               taken: "- уже существует в системе."
             password:
@@ -31,6 +29,15 @@ ru:
                 other: "- должно быть не меньше 8 символов."
             password_confirmation:
               confirmation: "- должно совпадать с паролем."
+        token:
+          attributes:
+            name:
+              too_long: "- ограничение в 25 символов."
+              blank: "- должно присутствовать"
+            MAC:
+              invalid: "- должен быть похож на 4f:a1:14:a7:01:43"
+              taken: "- уже кем-то используется"
+
 
 en:
   activerecord: 
@@ -40,12 +47,9 @@ en:
         email: "Email"
         password: "Password"
         password_confirmation: "Password confirmation"
-      photo:
+      token:
         name: "Name"
-      chat:
-        text: "Message"
-      comment:
-        text: "Сomment"
+        MAC: "MAC"
     errors:
       models:
         user:
@@ -65,4 +69,12 @@ en:
                 other: "must not be less than 8 symbols."
             password_confirmation:
               confirmation: "wrong."
+        token:
+          attributes:
+            name:
+              too_long: "- 25 symbols maximum."
+              blank: "- should be filled"
+            MAC:
+              invalid: "- should looks like 4f:a1:14:a7:01:43"
+              taken: "- has been taken"
 

@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password_digest
       t.string :avatar
       t.string :access
-      t.string :human_card
+      t.string :user_card
       t.string :activation_token
       t.string :activation_status
       t.datetime :activated_at

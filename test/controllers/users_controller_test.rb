@@ -93,21 +93,21 @@ class UsersControllerTest < ActionController::TestCase
   test "create action: if any errors user mustn't be redirected" do
     post :create, user: @bad_attributes, locale: @locale
     assert_template :new
-    assert assigns(:human).errors.any?
+    assert assigns(:user).errors.any?
   end
 
   # if "no attributes" request - must be handled
   test "create action: if 'no attributes request' - must be handled" do
     post :create, locale: @locale
     assert_template :new
-    assert assigns(:human).errors.any?
+    assert assigns(:user).errors.any?
   end
 
   # if "wrong type attributes" request - must be handled
   test "create action: if 'wrong type attributes request' - must be handled" do
     post :create, user: 'lalala', locale: @locale
     assert_template :new
-    assert assigns(:human).errors.any?
+    assert assigns(:user).errors.any?
   end
 
   #---------------------------------- edit action ------------------------------
@@ -205,7 +205,7 @@ class UsersControllerTest < ActionController::TestCase
                    user: @bad_attributes,
                    locale: @locale
     assert_template :edit
-    assert assigns(:human).errors.any?
+    assert assigns(:user).errors.any?
   end
 
   # if "no attributes" request - must be handled
